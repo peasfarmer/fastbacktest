@@ -1,11 +1,8 @@
-# fastbacktest
-fork from https://github.com/dirkolbrich/gobacktest, and I changed a lot.
-This is a framework in development, with only basic functionality.
+package main
 
-# Usage:
-
-Basic example:
-```
+import (
+	gbt "github.com/peasfarmer/fastbacktest/engine"
+)
 
 type sample1 struct {
 }
@@ -20,10 +17,10 @@ func (s *sample1) Init() *gbt.AppConfig {
 func (s *sample1) OnData(last gbt.TickerInterface, b *gbt.Backtest) (bool, error) {
 	portfolio := b.GetPortfolio()
 
-	if last.Price() < 2.2 {
+	if last.Price() < 2.83 {
 		portfolio.MakeOrderByFixNum(-1, 500)
 	}
-	if last.Price() > 2.8 {
+	if last.Price() > 2.88 {
 		portfolio.MakeOrderByFixNum(-1, 0)
 	}
 
@@ -43,15 +40,3 @@ func main() {
 	alg := &sample1{}
 	gbt.Run(alg)
 }
-
-
-```
-
-# plot
-golang plot is difficult than python, so I write a python read backtest result,and plot it use plotly(https://plot.ly/),that can show chart in browser.
-you only need do is call SavePlotData function save the data you want show, the python script will read data auto. 
-Basic example:
-```
-
-
-```
