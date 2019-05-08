@@ -52,6 +52,38 @@ golang plot is difficult than python, so I write a python read backtest result,a
 you only need do is call SavePlotData function save the data you want show, the python script will read data auto. 
 Basic example:
 ```
+type row struct {
+    Ts int64
 
+    MA1 float64
+    MA2 float64
+    MA3 float64
+}
+
+historyArray := make([]row, len(t.tickerList))
+index := 0
+
+for _, v := range t.tickerList {
+    if v.maList[2] == 0.0 {
+        continue
+    }
+    historyArray[index] = row{
+        Ts: v.t.UnixNano() / 1e6, //单位是毫秒
+
+        MA1: v.maList[0],
+        MA2: v.maList[1],
+        MA3: v.maList[2],
+    }
+    index++
+}
+
+configMap := map[string]interface{}{
+    "enable":    true,
+    "plotIndex": 1,
+}
+
+plot.SavePlotData(path, "ma", configMap, historyArray)
 
 ```
+
+![sample](/doc/plot1.png)
