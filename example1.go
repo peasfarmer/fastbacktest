@@ -29,7 +29,7 @@ func (s *sample1) OnData(last gbt.TickerInterface, b *gbt.Backtest) (bool, error
 func (s *sample1) OnEnd(b *gbt.Backtest) {
 	b.GetStats().PrintResult()
 
-	outputDir := "./examples/draw_data/"
+	outputDir := "./draw_data/"
 
 	plotByPython := gbt.PlotByPython{}
 
